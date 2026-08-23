@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>León Market</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f5f5f5;
+  color: #222;
+}
+
+header {
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 25px 15px;
+}
+
+header h1 {
+  font-size: 32px;
+}
+
+header p {
+  margin-top: 8px;
+  color: #ddd;
+}
+
+.hero {
+  text-align: center;
+  padding: 45px 20px;
+  background: white;
+}
+
+.hero h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.whatsapp {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 14px 22px;
+  background: #25D366;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.admin-button {
+  margin-top: 15px;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 10px;
+  background: #222;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.products {
+  max-width: 1000px;
+  margin: auto;
+  padding: 30px 15px;
+}
+
+.products h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+#lista-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.producto {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+.producto img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.producto h3 {
+  margin-top: 12px;
+}
+
+.precio {
+  margin-top: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.descripcion {
+  margin-top: 8px;
+  color: #666;
+}
+
+.admin {
+  display: none;
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+}
+
+.admin input,
+.admin textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.admin button {
+  padding: 12px 18px;
+  margin: 5px;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.add {
+  background: #111;
+  color: white;
+}
+
+.logout {
+  background: #ddd;
+}
+
+.admin-product {
+  border-top: 1px solid #ddd;
+  margin-top: 15px;
+  padding-top: 15px;
+}
+
+.delete {
+  background: #d33;
+  color: white;
+}
+
+footer {
+  margin-top: 30px;
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🦁 León Market</h1>
+  <p>Tu tienda en línea de León, Nicaragua</p>
+</header>
+
+<section class="hero">
+
+  <h2>🛍️ Nuestra tienda</h2>
+
+  <p>Envíos únicamente dentro de León, Nicaragua</p>
+
+  <a class="whatsapp"
+     href="https://wa.me/50584489066"
+     target="_blank">
+     📱 WhatsApp
+  </a>
+
+  <br>
+
+  <button class="admin-button" onclick="entrarAdmin()">
+    🔐 Administrador
+  </button>
+
+</section>
+
+<section class="admin" id="admin">
+
+  <h2>🔐 Panel de administrador</h2>
+
+  <input id="nombre" type="text" placeholder="Nombre del producto">
+
+  <input id="precio" type="number" placeholder="Precio en córdobas">
+
+  <input id="imagen" type="text" placeholder="URL de la imagen">
+
+  <textarea id="descripcion"
+    placeholder="Descripción del producto"></textarea>
+
+  <button class="add" onclick="agregarProducto()">
+    ➕ Agregar producto
+  </button>
+
+  <button class="logout" onclick="salirAdmin()">
+    Salir
+  </button>
+
+  <div id="lista-admin"></div>
+
+</section>
+
+<section class="products">
+
+  <h2>Productos</h2>
+
+  <div id="lista-productos">
+    No hay productos todavía.
+  </div>
+
+</section>
+
+<footer>
+  © 2026 León Market
+</footer>
+
+<script>
+
+const CONTRASENA = "Natyfelixantonio";
+
+let productos =
+  JSON.parse(localStorage.getItem("leon_market_productos")) || [];
+
+function guardarProductos() {
+  localStorage.setItem(
+    "leon_market_productos",
+    JSON.stringify(productos)
+  );
+}
+
+function mostrarProductos() {
+
+  const lista = document.getElementById("lista-productos");
+
+  if (productos.length === 0) {
+    lista.innerHTML = "No hay productos todavía.";
+    return;
+  }
+
+  lista.innerHTML = productos.map(producto => `
+
+    <article class="producto">
+
+      ${
+        producto.imagen
+        ? `<img src="${producto.imagen}" alt="${producto.nombre}">`
+        : ""
+      }
+
+      <h3>${producto.nombre}</h3>
+
+      <div class="precio">
+        C$ ${producto.precio}
+      </div>
+
+      <p class="descripcion">
+        ${producto.descripcion}
+      </p>
+
+    </article>
+
+  `).join("");
+}
+
+function entrarAdmin() {
+
+  const contraseña = prompt(
+    "🔐 Introduce la contraseña de administrador:"
+  );
+
+  if (contraseña === CONTRASENA) {
+
+    document.getElementById("admin").style.display = "block";
+
+    mostrarAdmin();
+
+    window.scrollTo({
+      top: document.getElementById("admin").offsetTop,
+      behavior: "smooth"
+    });
+
+  } else if (contraseña !== null) {
+
+    alert("❌ Contraseña incorrecta");
+
+  }
+}
+
+function salirAdmin() {
+
+  document.getElementById("admin").style.display = "none";
+
+}
+
+function agregarProducto() {
+
+  const nombre =
+    document.getElementById("nombre").value.trim();
+
+  const precio =
+    document.getElementById("precio").value.trim();
+
+  const imagen =
+    document.getElementById("imagen").value.trim();
+
+  const descripcion =
+    document.getElementById("descripcion").value.trim();
+
+  if (!nombre || !precio) {
+
+    alert("Escribí el nombre y el precio.");
+
+    return;
+  }
+
+  productos.push({
+
+    nombre: nombre,
+    precio: precio,
+    imagen: imagen,
+    descripcion: descripcion
+
+  });
+
+  guardarProductos();
+
+  document.getElementById("nombre").value = "";
+  document.getElementById("precio").value = "";
+  document.getElementById("imagen").value = "";
+  document.getElementById("descripcion").value = "";
+
+  mostrarProductos();
+  mostrarAdmin();
+
+  alert("✅ Producto agregado");
+
+}
+
+function mostrarAdmin() {
+
+  const lista =
+    document.getElementById("lista-admin");
+
+  if (productos.length === 0) {
+
+    lista.innerHTML =
+      "<p>No hay productos agregados.</p>";
+
+    return;
+  }
+
+  lista.innerHTML = productos.map((producto, index) => `
+
+    <div class="admin-product">
+
+      <strong>${producto.nombre}</strong>
+
+      <p>C$ ${producto.precio}</p>
+
+      <button
+        class="delete"
+        onclick="eliminarProducto(${index})">
+
+        🗑️ Eliminar
+
+      </button>
+
+    </div>
+
+  `).join("");
+}
+
+function eliminarProducto(index) {
+
+  if (
+    confirm(
+      "¿Seguro que querés eliminar este producto?"
+    )
+  ) {
+
+    productos.splice(index, 1);
+
+    guardarProductos();
+
+    mostrarProductos();
+    mostrarAdmin();
+
+  }
+}
+
+mostrarProductos();
+
+</script>
+
+</body>
+</html>
