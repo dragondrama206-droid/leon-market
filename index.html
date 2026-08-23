@@ -3,25 +3,167 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>León Market</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f5f5;
+      color: #222;
+    }
+
+    header {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    header h1 {
+      font-size: 32px;
+    }
+
+    header p {
+      margin-top: 8px;
+      color: #ddd;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: white;
+    }
+
+    .hero h2 {
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      color: #666;
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    .whatsapp {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 14px 22px;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    .info {
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    .info div {
+      background: white;
+      margin: 10px auto;
+      padding: 15px;
+      max-width: 450px;
+      border-radius: 10px;
+    }
+
+    .products {
+      padding: 30px 15px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .products h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .coming {
+      background: white;
+      padding: 40px 20px;
+      text-align: center;
+      border-radius: 12px;
+      color: #666;
+    }
+
+    footer {
+      margin-top: 30px;
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
 </head>
+
 <body>
 
-  <h1>🦁 León Market</h1>
+  <header>
+    <h1>🦁 León Market</h1>
+    <p>Tu tienda en línea de León, Nicaragua</p>
+  </header>
 
-  <h2>Próximamente</h2>
+  <section class="hero">
+    <h2>Próximamente 🛍️</h2>
 
-  <p>Estamos preparando nuestra tienda en línea.</p>
+    <p>
+      Estamos preparando nuestra tienda.<br>
+      Muy pronto tendremos nuestros primeros artículos.
+    </p>
 
-  <p>Muy pronto encontrarás nuestros primeros productos.</p>
+    <a
+      class="whatsapp"
+      href="https://wa.me/50584489066"
+      target="_blank">
+      📱 Escribir por WhatsApp
+    </a>
+  </section>
 
-  <p>📍 Envíos únicamente en León, Nicaragua</p>
+  <section class="info">
 
-  <p>💰 Precios en córdobas</p>
+    <div>
+      🇳🇮 <strong>Envíos</strong><br>
+      Únicamente dentro de León, Nicaragua
+    </div>
 
-  <a href="https://wa.me/50584489066">
-    <button>📱 Escribir por WhatsApp</button>
-  </a>
+    <div>
+      💰 <strong>Moneda</strong><br>
+      Todos nuestros precios estarán en córdobas (C$)
+    </div>
+
+    <div>
+      📲 <strong>WhatsApp</strong><br>
+      8448-9066
+    </div>
+
+  </section>
+
+  <section class="products">
+
+    <h2>🛍️ Productos</h2>
+
+    <div class="coming">
+      <h3>Próximamente</h3>
+      <p>
+        Todavía no tenemos artículos disponibles.
+        ¡Volvé pronto!
+      </p>
+    </div>
+
+  </section>
+
+  <footer>
+    © 2026 León Market
+  </footer>
 
 </body>
 </html>
